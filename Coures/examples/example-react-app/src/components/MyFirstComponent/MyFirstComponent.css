@@ -1,0 +1,16 @@
+.active {
+  border: solid 5px green;
+  border-radius: 10px;
+}
+
+.redBg {
+  background-color: red;
+}
+
+.yellowBg {
+  background-color: yellow;
+}
+
+.greenBg {
+  background-color: green;
+}
