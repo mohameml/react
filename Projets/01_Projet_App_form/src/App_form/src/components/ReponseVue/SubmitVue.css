@@ -1,0 +1,23 @@
+.vue {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info {
+    text-align: center;
+    width: 550px;
+    background-color: #eee;
+    border: 10px solid #eee;
+    padding: 20px;
+    border-radius: 10px;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}

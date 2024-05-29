@@ -1,0 +1,12 @@
+.post {
+    border: 2px solid #eee;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.post:hover {
+    border-color: #009688;
+}

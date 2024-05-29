@@ -4,6 +4,9 @@ import Task from "./components/Tasks/Task";
 import Counter from "./components/Counter/Counter";
 import MyInput from "./components/MyInput/MyInput";
 import Forms from "./components/Forms/Forms";
+import Parent from "./components/Communication/Parent";
+import Hello from "./components/Routers/Hello";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
     const users = [
@@ -71,6 +74,28 @@ function App() {
                     Counter : Updating State Sevral Time
                 </h1>
                 <Counter></Counter>
+            </div>
+            <hr />
+            <div>
+                <Parent></Parent>
+            </div>
+            <hr />
+            <div>
+                <Routes>
+                    <Route path="/hello" element={<Hello />} />
+                    <Route
+                        path="/sidi"
+                        element={
+                            <div>
+                                <h1>Hello Sidi</h1>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Iste, voluptas!
+                                </p>
+                            </div>
+                        }
+                    ></Route>
+                </Routes>
             </div>
         </div>
     );
