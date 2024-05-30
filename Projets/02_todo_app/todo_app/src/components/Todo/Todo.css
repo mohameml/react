@@ -1,0 +1,38 @@
+.parent {
+    display: flex;
+    justify-content: space-between;
+    background-color: #009688;
+    color: white;
+    padding: 20px;
+    width: 600px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 20px;
+}
+
+.text {
+    text-align: left;
+}
+
+/* .parent:hover {
+    transform: scaleY(1.5);
+    height: 200px;
+} */
+
+.cercle-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50px;
+    border: 2px solid red;
+}

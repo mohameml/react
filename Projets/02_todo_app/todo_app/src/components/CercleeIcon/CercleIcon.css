@@ -1,0 +1,10 @@
+.cercle-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50px;
+    border: 2px solid red;
+}

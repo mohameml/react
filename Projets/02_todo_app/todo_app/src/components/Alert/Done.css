@@ -1,0 +1,12 @@
+.done-parent {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.done {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
