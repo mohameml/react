@@ -7,7 +7,7 @@
     width: 600px;
     margin-bottom: 20px;
     border-radius: 10px;
-    transition: 0.5s;
+    transition: all 0.3s;
 }
 
 .icons {
@@ -21,10 +21,10 @@
     text-align: left;
 }
 
-/* .parent:hover {
-    transform: scaleY(1.5);
-    height: 200px;
-} */
+.parent:hover {
+    padding: 30px;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.7);
+}
 
 .cercle-icon {
     width: 40px;
@@ -35,4 +35,8 @@
     background-color: white;
     border-radius: 50px;
     border: 2px solid red;
+}
+
+.cercle-icon:hover {
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.7);
 }

@@ -5,50 +5,77 @@ import "./Todo.css";
 
 import Done from "../Alert/Done";
 import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
-import { useContext } from "react";
+// import { useState } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 
-export default function Todo({ title, body, id }) {
+export default function Todo({ todo }) {
     const [showDone, setShowDone] = useState(false);
-    let todos = useContext(DataContext);
+    let { todos, setTodos } = useContext(DataContext);
 
     function handelClickDone() {
         // on ajoute cette tache comme une tache terminee :
-
-        let todo = todos.find((ele) => {
-            if (ele.id === id) {
-                return true;
-            }
-        });
-        // todo.status.push("terminee");
-        todo.status.splice(todo.status.indexOf("encoures"), 1, "terminee");
-
+        // let todo = todos.find((ele) => {
+        //     if (ele.id === id) {
+        //         return true;
+        //     }
+        // });
+        // // todo.status.push("terminee");
+        // todo.status.splice(todo.status.indexOf("encoures"), 1, "terminee");
         setShowDone(true);
         setTimeout(() => {
             setShowDone(false);
         }, 1000);
+        setTodos(
+            todos.map((t) => {
+                if (t.id === todo.id) {
+                    t.isDone = !t.isDone;
+                }
+                return t;
+            })
+        );
+    }
+
+    function handelDelete() {
+        console.log("Delete");
     }
 
     return (
         <>
             <div className="parent">
+                {/* ====================== Info ============================== */}
                 <div className="text">
-                    <h3>{title}</h3>
-                    <p>{body}</p>
+                    <h3>{todo.title}</h3>
+                    <p>{todo.body}</p>
                 </div>
                 <div className="icons">
                     <div
                         className="cercle-icon"
-                        style={{ borderColor: "#4caf50" }}
+                        style={{
+                            borderColor: todo.isDone ? "white" : "#4caf50",
+                            backgroundColor: todo.isDone ? "#4caf50" : "white",
+                        }}
                     >
+                        {/* =================== Done ============================= */}
                         <IconButton onClick={handelClickDone}>
                             <CheckCircleOutlineOutlinedIcon
-                                style={{ color: "#4caf50" }}
+                                style={{
+                                    color: todo.isDone ? "white" : "#4caf50",
+                                }}
                             />
                         </IconButton>
-                        {showDone && <Done />}
+                        {showDone && (
+                            <Done
+                                text={
+                                    todo.isDone
+                                        ? "Tache Terminée Bravo"
+                                        : "action Done"
+                                }
+                            />
+                        )}
                     </div>
+
+                    {/* =================== Edit ============================= */}
 
                     <div
                         className="cercle-icon"
@@ -58,6 +85,8 @@ export default function Todo({ title, body, id }) {
                             <EditOutlinedIcon style={{ color: "#3f51b5" }} />
                         </IconButton>
                     </div>
+
+                    {/* =================== Delete ============================= */}
 
                     <div
                         className="cercle-icon"

@@ -1,86 +1,105 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import NavBar from "./components/NavBar/NavBar";
 import Divider from "@mui/material/Divider";
-import All from "./components/Todos/All";
-
-import { Routes, Route } from "react-router-dom";
-
-import { DataContext } from "./context/DataContext";
-
-import Termine from "./components/Todos/Termine";
-import EnCoures from "./components/Todos/EnCoures";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Todo from "../Todo/Todo";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import { DataContext } from "../../context/DataContext";
 
 export default function TodoList() {
-    const todos = [
+    const initTodos = [
         {
-            id: 1,
+            id: uuidv4(),
             title: "Tilte 1",
             body: "Description of todo",
-            status: ["all", "terminee"],
+            isDone: false,
         },
         {
-            id: 2,
+            id: uuidv4(),
             title: "Tilte 2",
             body: "Description of todo",
-            status: ["all", "terminee"],
+            isDone: false,
         },
         {
-            id: 3,
+            id: uuidv4(),
             title: "Tilte 3",
             body: "Description of todo",
-            status: ["all", "encoures"],
+            isDone: false,
         },
-        // {
-        //     id: 4,
-        //     title: "Tilte 4",
-        //     body: "Description of todo",
-        //     status: ["all", "encoures"],
-        // },
-        // {
-        //     id: 5,
-        //     title: "Tilte 5",
-        //     body: "Description of todo",
-        //     status: ["all", "terminee"],
-        // },
-        // {
-        //     id: 6,
-        //     title: "Tilte 6",
-        //     body: "Description of todo",
-        //     status: ["all", "encoures"],
-        // },
     ];
+
+    const [todos, setTodos] = useState(initTodos);
+    const [valueInput, setValueInput] = useState("");
+
+    let todosList = todos.map((ele) => {
+        return <Todo key={ele.id} todo={ele} />;
+    });
+
+    function handelInputChange(e) {
+        setValueInput(e.target.value);
+    }
+
+    function handelAdd() {
+        setTodos([
+            ...todos,
+            { id: uuidv4(), title: valueInput, body: "", isDone: false },
+        ]);
+        setValueInput("");
+    }
+
     return (
         <>
-            <DataContext.Provider value={todos}>
-                <div className="container">
-                    <div className="title">
-                        <h1>Tod List</h1>
-                        <Divider />
-                    </div>
-                    <div className="nav">
-                        <NavBar />
-                    </div>
-                    <Routes>
-                        <Route path="/" element={<All />}></Route>
-                        <Route path="/all" element={<All />}></Route>
-                        <Route path="/terminee" element={<Termine />}></Route>
-                        <Route path="/encoures" element={<EnCoures />}></Route>
-                    </Routes>
-
-                    <div className="add">
-                        <TextField
-                            id="outlined-basic"
-                            label="ajouter votre nouveau tache"
-                            variant="outlined"
-                            style={{ width: "60%" }}
-                        />
-                        <Button variant="contained" style={{ width: "40%" }}>
-                            Add
-                        </Button>
-                    </div>
+            {/* =========== title =================== */}
+            <div className="container">
+                <div className="title">
+                    <h1>Todo List</h1>
+                    <Divider />
                 </div>
-            </DataContext.Provider>
+                {/* ================== nav Bar =========================== */}
+                <div className="nav">
+                    <ToggleButtonGroup
+                        value={"value"}
+                        exclusive
+                        onChange={() => console.log("ToggleButton change")}
+                        aria-label="text alignment"
+                    >
+                        <ToggleButton value="left" aria-label="left aligned">
+                            All
+                        </ToggleButton>
+                        <ToggleButton value="center" aria-label="centered">
+                            Termineé
+                        </ToggleButton>
+                        <ToggleButton value="right" aria-label="right aligned">
+                            En coures
+                        </ToggleButton>
+                    </ToggleButtonGroup>
+                </div>
+
+                {/* ==================================== todos =============================== */}
+                <DataContext.Provider value={{ todos, setTodos }}>
+                    {todosList}
+                </DataContext.Provider>
+                {/* ================================ add todo =============================== */}
+                <div className="add">
+                    <TextField
+                        id="outlined-basic"
+                        label="ajouter votre nouveau tache"
+                        variant="outlined"
+                        style={{ width: "60%" }}
+                        value={valueInput}
+                        onChange={handelInputChange}
+                    />
+                    <Button
+                        variant="contained"
+                        style={{ width: "40%" }}
+                        onClick={handelAdd}
+                    >
+                        Add
+                    </Button>
+                </div>
+            </div>
         </>
     );
 }
