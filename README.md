@@ -5,7 +5,7 @@
 | Module                                                            | Statut                                                    |
 | ----------------------------------------------------------------- | --------------------------------------------------------- |
 | [01_Introduction](Cours/01_Introduction/)                         | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
-| [02_components]Cours/(02_components/)                             | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
+| [02_components](Cours/02_components/)                             | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
 | [03_JSX](Cours/03_JSX/)                                           | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
 | [04_style](Cours/04_style/)                                       | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
 | [05_props](Cours/05_props/)                                       | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
