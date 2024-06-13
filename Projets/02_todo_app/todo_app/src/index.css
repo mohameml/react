@@ -11,24 +11,24 @@ body {
 
 @font-face {
     font-family: pop;
-    src: url("/todo_app/public/fonts/Poppins-Black.ttf");
+    src: url("/public/static/OpenSans-ExtraBold.ttf");
     font-weight: 800;
 }
 
 @font-face {
     font-family: pop;
-    src: url("/todo_app/public/fonts/Poppins-Bold.ttf");
+    src: url("/public/static/OpenSans-Bold.ttf");
     font-weight: 700;
 }
 
 @font-face {
     font-family: pop;
-    src: url("/todo_app/public/fonts/Poppins-Medium.ttf");
+    src: url("/public/static/OpenSans-Medium.ttf");
     font-weight: 400;
 }
 
 @font-face {
     font-family: pop;
-    src: url("/todo_app/public/fonts/Poppins-Thin.ttf");
+    src: url("/public/static/OpenSans_SemiCondensed-Regular.ttf");
     font-weight: 200;
 }

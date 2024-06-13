@@ -11,6 +11,7 @@ import Slider from "@mui/material/Slider";
 import StackTest from "./Components/StackTest";
 import ContainerTest from "./Components/ContainerTest";
 import GridTest from "./Components/GridTest";
+import ExampleUseEffect from "./Components/ExampleUseEffect/ExampleUseEffect";
 
 function App() {
     // creation d'une theme de notre App :
@@ -88,7 +89,9 @@ function App() {
                     <GridTest color="primary"></GridTest>
                 </div>
                 <hr />
-                
+
+                <hr />
+                <ExampleUseEffect />
             </ThemeProvider>
         </>
     );

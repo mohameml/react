@@ -1,6 +1,7 @@
 import "./App.css";
 import TodoList from "./components/TodoList/TododList";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Edit from "./components/Todo/Edit";
 
 function App() {
     const theme = createTheme({
@@ -13,6 +14,8 @@ function App() {
         <>
             <ThemeProvider theme={theme}>
                 <TodoList />
+                {/* <Edit></Edit> */}
+                <Edit />
             </ThemeProvider>
         </>
     );
