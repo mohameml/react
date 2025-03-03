@@ -2,8 +2,11 @@
 import { useState } from "react";
 import "./Forms.css";
 import SubmitVue from "../ReponseVue/SubmitVue";
+// import CostumInput from "../CostumInput/CostumInput";
+
 
 function Forms() {
+
     const initiForms = {
         name: "",
         phoneNumber: "",
@@ -11,6 +14,7 @@ function Forms() {
         isEmployee: false,
         salary: "less than 500$",
     };
+
     const [forms, setForms] = useState(initiForms);
 
     const [disable, setDisable] = useState(true);
@@ -54,6 +58,7 @@ function Forms() {
                 <h1>Requesting a Loan</h1>
                 <hr />
                 <form onSubmit={handelSubmit}>
+                    {/* <CostumInput label="Name" value={forms.name} handelChange={handelChange} handelBlur={handelBlur} /> */}
                     <div>
                         <label htmlFor="name">Name</label>
                         <input
@@ -64,6 +69,7 @@ function Forms() {
                             onChange={handelChange}
                             onBlur={handelBlur}
                         />
+
                     </div>
                     <div>
                         <label htmlFor="phoneNumber">Phone Number</label>
@@ -127,7 +133,7 @@ function Forms() {
             </div>
 
             {showSubmitVue && (
-                <SubmitVue forms={forms} setVisible={setShowSubmitVue} />
+                <SubmitVue forms={forms} setVisible={setShowSubmitVue} />   
             )}
         </>
     );

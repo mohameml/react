@@ -16,6 +16,8 @@
     2. **État Lifté**: Partagé entre plusieurs composants en levant l'état vers leur ancêtre commun le plus proche. Cela permet à ces composants de partager et de synchroniser leurs données.
     3. **État Global**: Géré à travers l'ensemble de l'application. Pour cela, des bibliothèques ou des outils tels que Context API ou Redux sont souvent utilisés. L'état global permet de centraliser et de coordonner les données entre différents composants, peu importe leur position dans l'arborescence des composants.
 
+![alt text](image-2.png)
+
 ## 2. **hook `useState`:**
 
 -   **Description:**
@@ -37,6 +39,8 @@
     -   `setState` : La fonction utilisée pour mettre à jour l'état.
     -   `initialState` : La valeur initiale de l'état.
 
+![alt text](image.png)
+
 -   **Exemple:`counter`**
 
     -   **avec React:**
@@ -45,17 +49,17 @@
         import React, { useState } from "react";
 
         function Counter() {
-            // Déclare une nouvelle variable d'état, "count", avec une valeur initiale de 0
-            const [count, setCount] = useState(0);
+        	// Déclare une nouvelle variable d'état, "count", avec une valeur initiale de 0
+        	const [count, setCount] = useState(0);
 
-            return (
-                <div>
-                    <p>Vous avez cliqué {count} fois</p>
-                    <button onClick={() => setCount(count + 1)}>
-                        Cliquez ici
-                    </button>
-                </div>
-            );
+        	return (
+        		<div>
+        			<p>Vous avez cliqué {count} fois</p>
+        			<button onClick={() => setCount(count + 1)}>
+        				Cliquez ici
+        			</button>
+        		</div>
+        	);
         }
 
         export default Counter;
@@ -67,10 +71,10 @@
         let count = 1;
 
         document.querySelector(".btn").addEventListener("click", function () {
-            count++;
-            document.querySelector(
-                ".count h2"
-            ).textContent = `resultat : ${count}`;
+        	count++;
+        	document.querySelector(
+        		".count h2"
+        	).textContent = `resultat : ${count}`;
         });
         ```
 
@@ -89,23 +93,23 @@
     import "./Counter..css";
 
     function Counter() {
-        console.log("render Counter");
+    	console.log("render Counter");
 
-        let [count, setCount] = useState(0);
+    	let [count, setCount] = useState(0);
 
-        function update() {
-            setCount(count + 1);
-            setCount(count + 1);
-        }
+    	function update() {
+    		setCount(count + 1);
+    		setCount(count + 1);
+    	}
 
-        return (
-            <>
-                <div className="counter">
-                    <h3>resultat: {count}</h3>
-                    <button onClick={update}>Update</button>
-                </div>
-            </>
-        );
+    	return (
+    		<>
+    			<div className="counter">
+    				<h3>resultat: {count}</h3>
+    				<button onClick={update}>Update</button>
+    			</div>
+    		</>
+    	);
     }
 
     export default Counter;
@@ -123,7 +127,7 @@
 
 ```jsx
 setState((prevState) => {
-    return newSate;
+	return newSate;
 });
 ```
 
@@ -136,24 +140,28 @@ setState((prevState) => {
     import "./Counter..css";
 
     function Counter() {
-        console.log("render Counter");
+    	console.log("render Counter");
 
-        let [count, setCount] = useState(0);
+    	let [count, setCount] = useState(0);
 
-        function update() {
-            setCount((count) => count + 1);
-            setCount((count) => count + 1);
-        }
+    	function update() {
+    		setCount((count) => count + 1);
+    		setCount((count) => count + 1);
+    	}
 
-        return (
-            <>
-                <div className="counter">
-                    <h3>resultat: {count}</h3>
-                    <button onClick={update}>Update</button>
-                </div>
-            </>
-        );
+    	return (
+    		<>
+    			<div className="counter">
+    				<h3>resultat: {count}</h3>
+    				<button onClick={update}>Update</button>
+    			</div>
+    		</>
+    	);
     }
 
     export default Counter;
     ```
+
+### RQ : **How State Work:**
+
+![alt text](image-1.png)

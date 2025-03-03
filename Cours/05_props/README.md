@@ -7,8 +7,10 @@
     > Les `props` (abréviation de "properties") sont un mécanisme de React permettant de passer des données d'un composant parent à un composant enfant. Les props sont immuables, ce qui signifie qu'un composant enfant ne peut pas modifier ses props directement. Les props sont utilisées pour rendre les composants plus dynamiques et réutilisables.
 
     -   **Props**: Les props sont des **objets** passés aux composants React depuis leurs parents. Elles contiennent les données et les instructions dont les composants ont besoin pour fonctionner.
-    -   **Immuables**: Une fois définies, les props ne peuvent pas être modifiées par le composant enfant.
-    -   **Passage des Props**: Les props sont passées de haut en bas dans l'arbre des composants (du parent à l'enfant).
+    -   **Immuables (`READ ONLY`)**: Une fois définies, les props ne peuvent pas être modifiées par le composant enfant.
+    -   **Passage des Props (`ONE-WAY DATA FLOW`)**: Les props sont passées de haut en bas dans l'arbre des composants (du parent à l'enfant).
+
+![alt text](image.png)
 
 -   **Syntaxe:**
 
@@ -50,11 +52,11 @@
         import React from "react";
 
         function Enfant({ nomAttribut }) {
-            return (
-                <div>
-                    <h1>{nomAttribut}</h1>
-                </div>
-            );
+        	return (
+        		<div>
+        			<h1>{nomAttribut}</h1>
+        		</div>
+        	);
         }
 
         export default Enfant;
@@ -70,18 +72,18 @@
         import Enfant from "./Enfant";
 
         function Parent() {
-            const message = "Hello from Parent Component!";
-            const user = {
-                name: "Alice",
-                age: 25,
-            };
+        	const message = "Hello from Parent Component!";
+        	const user = {
+        		name: "Alice",
+        		age: 25,
+        	};
 
-            return (
-                <div>
-                    <h1>Parent Component</h1>
-                    <Enfant message={message} user={user} />
-                </div>
-            );
+        	return (
+        		<div>
+        			<h1>Parent Component</h1>
+        			<Enfant message={message} user={user} />
+        		</div>
+        	);
         }
 
         export default Parent;
@@ -94,14 +96,14 @@
         import React from "react";
 
         function Enfant({ message, user }) {
-            return (
-                <div>
-                    <h2>Enfant Component</h2>
-                    <p>{message}</p>
-                    <p>User Name: {user.name}</p>
-                    <p>User Age: {user.age}</p>
-                </div>
-            );
+        	return (
+        		<div>
+        			<h2>Enfant Component</h2>
+        			<p>{message}</p>
+        			<p>User Name: {user.name}</p>
+        			<p>User Age: {user.age}</p>
+        		</div>
+        	);
         }
 
         export default Enfant;
@@ -122,15 +124,15 @@
     ```jsx
     // Composant parent avec des enfants
     <ComposantParent>
-        <div>Enfant 1</div>
-        <div>Enfant 2</div>
+    	<div>Enfant 1</div>
+    	<div>Enfant 2</div>
     </ComposantParent>;
 
     // Composant parent utilisant les children props
     import React from "react";
 
     function ComposantParent(props) {
-        return <div>{props.children}</div>;
+    	return <div>{props.children}</div>;
     }
 
     export default ComposantParent;
@@ -146,16 +148,16 @@
         import Conteneur from "./Conteneur";
 
         function Parent() {
-            return (
-                <div>
-                    <h1>Parent Component</h1>
-                    <Conteneur>
-                        <p>Je suis un enfant 1</p>
-                        <p>Je suis un enfant 2</p>
-                        <p>Je suis un enfant 3</p>
-                    </Conteneur>
-                </div>
-            );
+        	return (
+        		<div>
+        			<h1>Parent Component</h1>
+        			<Conteneur>
+        				<p>Je suis un enfant 1</p>
+        				<p>Je suis un enfant 2</p>
+        				<p>Je suis un enfant 3</p>
+        			</Conteneur>
+        		</div>
+        	);
         }
 
         export default Parent;
@@ -168,13 +170,43 @@
         import React from "react";
 
         function Conteneur({ children }) {
-            return (
-                <div>
-                    <h2>Conteneur Component</h2>
-                    <div className="contenu">{children}</div>
-                </div>
-            );
+        	return (
+        		<div>
+        			<h2>Conteneur Component</h2>
+        			<div className="contenu">{children}</div>
+        		</div>
+        	);
         }
 
         export default Conteneur;
+        ```
+
+![alt text](image-1.png)
+
+### RQ : En React, les **props** (propriétés) peuvent accepter une grande variété de valeurs, selon ce que vous souhaitez passer à un composant
+
+-   **Valeurs primitives**
+
+    -   **Strings** : `title="Bonjour"`
+    -   **Numbers** : `count={42}`
+    -   **Booleans** : `isActive={true}` (ou simplement `isActive` qui équivaut à `true`)
+    -   **Null & Undefined** : `value={null}` ou `value={undefined}`
+
+-   **Objets et Tableaux**
+
+    -   **Objets** : `user={{ name: "Alice", age: 25 }}`
+    -   **Tableaux** : `items={['React', 'Vue', 'Angular']}`
+
+-   **Fonctions**
+
+    -   Vous pouvez passer des fonctions comme props pour gérer des événements.
+        ```jsx
+        <Button onClick={() => alert("Clique !")} />
+        ```
+
+-   **Composants React**
+
+    -   Vous pouvez passer un composant React en tant que prop.
+        ```jsx
+        <Wrapper component={<Header />} />
         ```

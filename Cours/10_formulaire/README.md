@@ -1,237 +1,203 @@
-# cour 10 :
+# Cour : 🌟 **Cours sur les formulaires en React**
 
-## 1. **`useState` avec un Input en React:**
+## 📌 1.**Définition et concept des éléments contrôlés**
 
--   **Description:**
+-   Les formulaires sont essentiels pour collecter des données des utilisateurs. En React, il y a deux types principaux de gestion des entrées :
 
-    > Le hook `useState` en React est couramment utilisé pour gérer l'état local des composants fonctionnels, y compris les valeurs des champs de formulaire tels que les entrées utilisateur. Lorsque l'utilisateur saisit des données dans un champ de saisie, l'état du composant est mis à jour pour refléter ces modifications.
+    -   **Éléments contrôlés (`Controlled Components`)**
+    -   **Éléments non contrôlés (`Uncontrolled Components`)**
 
-    -   **Initialisation de l'état**: Vous définissez un état initial pour le champ de saisie.
-    -   **Mise à jour de l'état**: Vous utilisez la fonction de mise à jour de l'état (retournée par `useState`) pour modifier la valeur de l'état en fonction des modifications de l'utilisateur.
+-   **Élément contrôlé**
+
+    > Un **élément contrôlé** est un champ dont la valeur est gérée par l’état de React (`useState`). Chaque changement de saisie déclenche une mise à jour de l’état.
+
+    ```jsx
+    import { useState } from "react";
+
+    function FormExample() {
+    	const [inputValue, setInputValue] = useState("");
+
+    	const handleChange = (event) => {
+    		setInputValue(event.target.value);
+    	};
+
+    	return <input type="text" value={inputValue} onChange={handleChange} />;
+    }
+    ```
+
+-   **Élément non contrôlé**
+
+    > Un **élément non contrôlé** utilise directement le DOM via `useRef()`.
+
+    ```jsx
+    import { useRef } from "react";
+
+    function UncontrolledExample() {
+    	const inputRef = useRef(null);
+
+    	const handleSubmit = () => {
+    		alert(inputRef.current.value);
+    	};
+
+    	return (
+    		<div>
+    			<input type="text" ref={inputRef} />
+    			<button onClick={handleSubmit}>Envoyer</button>
+    		</div>
+    	);
+    }
+    ```
+
+    -   📌 **Avantages :**
+
+        -   Parfois plus performant pour les formulaires complexes.
+        -   Utile lorsqu'on doit manipuler des fichiers ou des éléments natifs.
+
+## 📌 2.**Syntaxe générale d'un formulaire React**
+
+> Un formulaire React est souvent basé sur **`useState`** pour gérer les entrées.
 
 -   **Syntaxe:**
 
     ```jsx
-    import React, { useState } from "react";
+    import { useState } from "react";
 
-    function TextInput() {
-        const [value, setValue] = useState("");
+    function MyForm() {
+    	const [name, setName] = useState("");
 
-        const handleChange = (event) => {
-            setValue(event.target.value);
-        };
+    	const handleSubmit = (event) => {
+    		event.preventDefault();
+    		alert(`Nom soumis : ${name}`);
+    	};
 
-        return (
-            <div>
-                <label htmlFor="inputField">Type something:</label>
-                <input
-                    type="text"
-                    id="inputField"
-                    value={value}
-                    onChange={handleChange}
-                    placeholder="Type something..."
-                />
-                <p>Vous avez tapé: {value}</p>
-            </div>
-        );
+    	return (
+    		<form onSubmit={handleSubmit}>
+    			<input
+    				type="text"
+    				value={name}
+    				onChange={(e) => setName(e.target.value)}
+    			/>
+    			<button type="submit">Envoyer</button>
+    		</form>
+    	);
     }
     ```
 
--   **Exemple:**
+    -   `onChange` met à jour l’état avec la nouvelle valeur.
+    -   `onSubmit` empêche le rechargement de la page (`event.preventDefault()`).
 
-    ```jsx
-    import React, { useState } from "react";
+## 📌 3.**Tableau des types d'inputs et gestion en React**
 
-    function MultipleInputs() {
-        const [firstName, setFirstName] = useState("");
-        const [lastName, setLastName] = useState("");
+| Type d'input                | Exemple                     | Gestion en React                                               |
+| --------------------------- | --------------------------- | -------------------------------------------------------------- |
+| Texte (`text`)              | `<input type="text" />`     | `value={state} onChange={(e) => setState(e.target.value)}`     |
+| Mot de passe (`password`)   | `<input type="password" />` | `value={state} onChange={(e) => setState(e.target.value)}`     |
+| Email (`email`)             | `<input type="email" />`    | `value={state} onChange={(e) => setState(e.target.value)}`     |
+| Nombre (`number`)           | `<input type="number" />`   | `value={state} onChange={(e) => setState(e.target.value)}`     |
+| Case à cocher (`checkbox`)  | `<input type="checkbox" />` | `checked={state} onChange={(e) => setState(e.target.checked)}` |
+| Bouton radio (`radio`)      | `<input type="radio" />`    | `checked={state} onChange={(e) => setState(e.target.checked)}` |
+| Zone de texte (`textarea`)  | `<textarea></textarea>`     | `value={state} onChange={(e) => setState(e.target.value)}`     |
+| Liste déroulante (`select`) | `<select><option>...`       | `value={state} onChange={(e) => setState(e.target.value)}`     |
+| Fichier (`file`)            | `<input type="file" />`     | `useRef()` ou `onChange={(e) => setState(e.target.files)}`     |
 
-        return (
-            <div>
-                <div>
-                    <label htmlFor="firstName">First Name:</label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                </div>
-                <p>
-                    Full Name: {firstName} {lastName}
-                </p>
-            </div>
-        );
-    }
+-   Pour la majorité des inputs, l'événement `onChange` utilise `e.target.value` pour obtenir la nouvelle valeur (par exemple, pour des champs de texte, email, etc.).
+-   Pour les cases à cocher et les boutons radio, on utilise `e.target.checked` pour savoir si l'élément est sélectionné ou non.
+-   Pour les fichiers, on peut utiliser `useRef()` pour obtenir les fichiers ou `e.target.files` dans un gestionnaire `onChange`.
 
-    export default MultipleInputs;
-    ```
+## 📌 4. **Exemple complet d'un formulaire React**
 
-## 2. **`Formulaires avec React en utilisant `useState``:**
+> Voici un **formulaire complet** avec plusieurs types d’inputs et validation.
 
--   **Description:**
+```jsx
+import { useState } from "react";
 
-    > Créer des formulaires en React en utilisant le hook `useState` avec un objet pour gérer l'état de formulaire et l'événement `onSubmit` pour gérer la soumission du formulaire est une méthode courante et efficace. Cela permet de centraliser et de gérer efficacement l'état de plusieurs champs de formulaire.
+function CompleteForm() {
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		age: "",
+		gender: "male",
+		terms: false,
+	});
 
-    -   **Initialisation de l'état**: Utilisez `useState` pour initialiser un état de formulaire en tant qu'objet avec des clés correspondant aux différents champs de formulaire.
-    -   **Gestion des modifications**: Utilisez un gestionnaire d'événements `onChange` pour mettre à jour l'état de formulaire en fonction des entrées de l'utilisateur.
-    -   **Soumission du formulaire**: Utilisez un gestionnaire d'événements `onSubmit` pour gérer ce qui se passe lorsque le formulaire est soumis.
+	const handleChange = (e) => {
+		const { name, value, type, checked } = e.target;
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: type === "checkbox" ? checked : value,
+		}));
+	};
 
--   **Syntaxe:**
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("Données soumises :", formData);
+	};
 
-    Voici la syntaxe complète pour créer un composant de formulaire en React en utilisant `useState` avec un objet pour gérer l'état et l'événement `onSubmit` pour la soumission du formulaire :
+	return (
+		<form onSubmit={handleSubmit}>
+			<label>
+				Nom :
+				<input
+					type="text"
+					name="name"
+					value={formData.name}
+					onChange={handleChange}
+				/>
+			</label>
 
-    ```jsx
-    import React, { useState } from "react";
+			<label>
+				Email :
+				<input
+					type="email"
+					name="email"
+					value={formData.email}
+					onChange={handleChange}
+				/>
+			</label>
 
-    function FormComponent() {
-        // Initialiser l'état du formulaire
-        const [form, setForm] = useState({
-            firstName: "",
-            lastName: "",
-            email: "",
-        });
+			<label>
+				Âge :
+				<input
+					type="number"
+					name="age"
+					value={formData.age}
+					onChange={handleChange}
+				/>
+			</label>
 
-        // Gestionnaire de changement pour les champs de formulaire
-        const handleChange = (event) => {
-            const { name, value } = event.target;
-            setForm((prevForm) => ({
-                ...prevForm,
-                [name]: value,
-            }));
-        };
+			<label>
+				Genre :
+				<select
+					name="gender"
+					value={formData.gender}
+					onChange={handleChange}
+				>
+					<option value="male">Homme</option>
+					<option value="female">Femme</option>
+				</select>
+			</label>
 
-        // Gestionnaire de soumission du formulaire
-        const handleSubmit = (event) => {
-            event.preventDefault(); // Empêcher le rechargement de la page
-            // Logique de soumission du formulaire, par exemple envoyer les données à un serveur
-            console.log("Form submitted:", form);
-        };
+			<label>
+				Accepter les conditions :
+				<input
+					type="checkbox"
+					name="terms"
+					checked={formData.terms}
+					onChange={handleChange}
+				/>
+			</label>
 
-        return (
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="firstName">First Name:</label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={form.firstName}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={form.lastName}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-        );
-    }
+			<button type="submit">Soumettre</button>
+		</form>
+	);
+}
 
-    export default FormComponent;
-    ```
+export default CompleteForm;
+```
 
--   **Exemples :**
+### RQ : 🚀 **Conclusion**
 
-    -   **text:**
-
-        ```jsx
-        <input
-            value={form.name}
-            type="text"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
-        ```
-
-    -   **textarea:**
-
-        ```jsx
-        <textarea
-            onChange={(e) => setForm({ ...form, comment: e.target.value })}
-        >
-            {form.comment}
-        </textarea>
-        ```
-
-    -   **checkbox:**
-
-        ```jsx
-        <input
-            type="checkbox"
-            checked={form.isStudent}
-            onChange={(e) => {
-                setForm({
-                    ...form,
-                    isStudent: e.target.checked,
-                });
-            }}
-        />
-        ```
-
-    -   **selecet:**
-
-        ```jsx
-        <select
-            value={form.country}
-            onChange={(e) => setForm({ ...form, country: e.target.value })}
-        >
-            <option>MAURITANIE</option>
-            <option>KSA</option>
-            <option>EGYPTE</option>
-            <option>FRANCE</option>
-        </select>
-        ```
-
-    -   **radio**
-
-        ```jsx
-        <div>
-            <input
-                value={"Student"}
-                type="radio"
-                checked={form.status === "Student" ? true : false}
-                onChange={(e) => setForm({ ...form, status: e.target.value })}
-            />
-            Student
-            <input
-                value={"Teacher"}
-                type="radio"
-                checked={form.status === "Teacher" ? true : false}
-                onChange={(e) => setForm({ ...form, status: e.target.value })}
-            />
-            Teacher
-            <input
-                value={"prof"}
-                type="radio"
-                checked={form.status === "prof" ? true : false}
-                onChange={(e) => setForm({ ...form, status: e.target.value })}
-            />
-            prof
-        </div>
-        ```
+-   **Les éléments contrôlés** (`useState`) sont recommandés pour une gestion fine.
+-   **Les éléments non contrôlés** (`useRef`) sont utiles pour les fichiers ou les formulaires lourds.
+-   **Les événements `onChange` et `onSubmit`** sont essentiels.
+-   **`setState` avec `name` dynamique** est une bonne pratique pour gérer plusieurs inputs.

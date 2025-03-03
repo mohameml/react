@@ -1,86 +1,107 @@
 # cour 11 : **Array State:**
 
-## 1. Description
+## 1. **Array State en React**
 
-> En React, vous pouvez utiliser le hook `useState` pour gérer l'état d'un composant fonctionnel, y compris un état qui est une liste (ou un tableau). Voici une description et un exemple détaillé de l'utilisation de `useState` avec une liste.
+> En React, un **array state** est un état (`useState`) qui contient un **tableau**. Il est couramment utilisé pour stocker des **listes d'éléments dynamiques** comme une liste de tâches, des produits d'un panier, etc.
 
-Le hook `useState` permet de déclarer une variable d'état dans un composant fonctionnel. Lorsque cette variable change, le composant se re-render pour refléter les nouvelles valeurs.
+-   **Déclaration et Syntaxe de l'Array State**
 
-## 2. **Syntaxe:**
+    On utilise `useState` pour gérer un tableau comme état :
 
-```javascript
-const [state, setState] = useState([val1, val2]);
-```
+    ```jsx
+    const [items, setItems] = useState([]); // Tableau vide au départ
+    ```
 
--   `state` : la variable d'état actuelle.
--   `setState` : une fonction qui met à jour l'état.
--   `initialState` : la valeur initiale de l'état, qui peut être une liste ou un autre type de données.
+    -   `items` : représente le tableau d’éléments.
+    -   `setItems` : permet de mettre à jour l’état (`items`).
+    -   Initialement, `items` est un tableau vide `[]`.
 
-## 3. **Exemple:`TodoList`**
+## 2.**Opérations courantes sur un Array State :**
+
+-   **Ajouter un élément :**
+
+    ```jsx
+    const addItem = (newItem) => {
+    	setItems([...items, newItem]); // Ajoute l'élément à la fin
+    };
+    ```
+
+-   **Supprimer un élément (`filter`)**
+
+    ```jsx
+    const removeItem = (id) => {
+    	setItems(items.filter((item) => item.id !== id));
+    };
+    ```
+
+-   **Modifier un élément (`map`)**
+
+    ```jsx
+    const editItem = (id, newName) => {
+    	setItems(
+    		items.map((item) =>
+    			item.id === id ? { ...item, name: newName } : item
+    		)
+    	);
+    };
+    ```
+
+## 3. **Exemple Complet : Gestion d’une Liste d’Articles**
 
 ```jsx
 import { useState } from "react";
-import "./Task.css";
 
-function TodoList() {
-    let count = 4;
-    const [value, setValue] = useState("");
-    const [devaices, setDevaices] = useState([
-        { id: 1, name: "task 1" },
-        { id: 2, name: "task 2" },
-        { id: 3, name: "task 3" },
-        { id: 4, name: "task 4 " },
-    ]);
+const App = () => {
+	const [items, setItems] = useState([]);
 
-    function handelAdd() {
-        count++;
-        setDevaices([...devaices, { id: count, name: value }]);
-    }
+	const addItem = (name) => {
+		const newItem = { id: Date.now(), name, packed: false };
+		setItems([...items, newItem]);
+	};
 
-    function handelDelete(id) {
-        setDevaices(devaices.filter((elem) => (elem.id !== id ? true : false)));
-    }
+	const removeItem = (id) => {
+		setItems(items.filter((item) => item.id !== id));
+	};
 
-    function handelEdit(id) {
-        setDevaices(
-            devaices.map((elem) => {
-                if (elem.id === id) {
-                    elem.name = elem.name + "w";
-                    return elem;
-                }
+	const togglePacked = (id) => {
+		setItems(
+			items.map((item) =>
+				item.id === id ? { ...item, packed: !item.packed } : item
+			)
+		);
+	};
 
-                return elem;
-            })
-        );
-    }
+	return (
+		<div>
+			<button onClick={() => addItem("Article " + (items.length + 1))}>
+				Ajouter un article
+			</button>
+			<ul>
+				{items.map((item) => (
+					<li key={item.id}>
+						{item.name} - {item.packed ? "✔️" : "❌"}
+						<button onClick={() => togglePacked(item.id)}>
+							Toggle
+						</button>
+						<button onClick={() => removeItem(item.id)}>
+							Supprimer
+						</button>
+					</li>
+				))}
+			</ul>
+		</div>
+	);
+};
 
-    const devaicesList = devaices.map((item) => (
-        <li key={item.id}>
-            {item.name}
-            <button onClick={() => handelDelete(item.id)}>X</button>
-            <button onClick={() => handelEdit(item.id)}>Edit</button>
-        </li>
-    ));
-
-    return (
-        <>
-            <div className="task">
-                {devaicesList}
-                <input
-                    type="text"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                />
-                <button onClick={handelAdd}>add</button>
-            </div>
-        </>
-    );
-}
-
-export default Task;
+export default App;
 ```
 
-![alt text](image-1.png)
+### Rq : 📌 **Récapitulatif des Bonnes Pratiques** ✅
+
+1. **Toujours créer un nouveau tableau** (`spread operator`, `map`, `filter`).
+2. **Ne pas modifier directement le state** (`state.push()` ❌, utiliser `setItems([...state])` ✅).
+3. **Utiliser `id` pour identifier chaque élément** (évite les conflits).
+4. **Optimiser la gestion de l’état** en groupant les mises à jour si nécessaire.
 
 ### RQ :
 
