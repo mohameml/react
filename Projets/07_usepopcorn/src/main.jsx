@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 // import "./index.css";
 // import App from "./App.jsx";
 
-import StarRatingr from "./components/StarRating/index.jsx";
+import StarRating from "./components/StarRating/index.jsx";
 
 // export default function Test() {
 // 	const [movieRating, setMovieRating] = useState(0);
@@ -22,7 +22,7 @@ import StarRatingr from "./components/StarRating/index.jsx";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<StarRatingr
+		<StarRating
 			maxRating={"sssisis"}
 			// messages={["Terrible", "Bad", "OK", "Good", "Amazing"]}
 		/>
