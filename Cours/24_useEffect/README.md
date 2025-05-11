@@ -134,3 +134,70 @@ Un **side effect ne doit jamais être exécuté pendant le rendu** d’un compos
     	);
     }
     ```
+
+## 3. **Clean-Up Function :**
+
+-   **Définition**
+
+    > Une **cleanup function** dans React est une fonction retournée par le hook `useEffect`. Elle sert à **nettoyer** les effets secondaires (side effects) avant que :
+
+    1.  Le composant soit démonté (_unmounted_), ou
+    2.  L’effet soit réexécuté à cause d’un changement de dépendances.
+
+-   Typiquement, on l’utilise pour :
+
+    ✅ Désabonner un listener ou un intervalle,
+    ✅ Annuler une requête réseau,
+    ✅ Nettoyer des timers,
+    ✅ Libérer des ressources.
+
+-   **Syntaxe**
+
+    ```js
+    import { useEffect } from "react";
+
+    useEffect(() => {
+    	// Code exécuté quand l'effet est monté (ou re-exécuté)
+
+    	return () => {
+    		// Cleanup : exécuté avant la prochaine exécution de l'effet,
+    		// et aussi quand le composant est démonté
+    	};
+    }, [dependencies]);
+    ```
+
+-   **Exemple concret :**
+
+    ```js
+    useEffect(() => {
+    	const intervalId = setInterval(() => {
+    		console.log("Tick");
+    	}, 1000);
+
+    	return () => {
+    		clearInterval(intervalId); // Nettoyage
+    	};
+    }, []); // Exécuté une seule fois à l’initiation
+    ```
+
+### **RQ :**
+
+✅ **Chaque effet (`useEffect`) doit faire une seule chose.**
+Pourquoi ?
+
+-   Si tu mélanges plusieurs responsabilités (ex. un effet pour un event listener et un autre pour une requête API), tu risques d’avoir des conflits dans les nettoyages.
+-   Cela suit le principe de _Single Responsibility_ → un effet = un type d’effet secondaire.
+    Si tu as plusieurs choses à gérer, écris plusieurs hooks `useEffect` séparés.
+
+Exemple :
+
+```js
+useEffect(() => {
+	window.addEventListener("resize", handleResize);
+	return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+useEffect(() => {
+	fetchData();
+}, [someDependency]);
+```

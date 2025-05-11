@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function WatchedMovie({ movie }) {
+export default function WatchedMovie({ movie, onDeleteWatchedMovie }) {
 	return (
 		<li>
 			<img src={movie.Poster} alt={`${movie.Title} poster`} />
@@ -18,6 +18,12 @@ export default function WatchedMovie({ movie }) {
 					<span>⏳</span>
 					<span>{movie.runtime} min</span>
 				</p>
+				<button
+					className="btn-delete"
+					onClick={() => onDeleteWatchedMovie(movie.imdbID)}
+				>
+					X
+				</button>
 			</div>
 		</li>
 	);
