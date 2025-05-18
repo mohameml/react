@@ -1,0 +1,64 @@
+{
+  "cities": [
+    {
+      "id": "2c54",
+      "cityName": "Nouadhibou",
+      "country": "Mauritania",
+      "emoji": "🇲🇷",
+      "date": "2025-05-17T20:07:20.062Z",
+      "notes": "it was a amazing Trip",
+      "position": {
+        "lat": "20.59165212082918",
+        "lng": "-15.820312500000002"
+      }
+    },
+    {
+      "id": "0844",
+      "cityName": "Kalaat El Andalous",
+      "country": "Tunisia",
+      "emoji": "🇹🇳",
+      "date": "2025-05-17T21:51:44.011Z",
+      "notes": "it was amazing Trip",
+      "position": {
+        "lat": "36.99103621751952",
+        "lng": "10.063133239746096"
+      }
+    },
+    {
+      "id": "a40f",
+      "cityName": "Kirchdorf",
+      "country": "Switzerland",
+      "emoji": "🇨🇭",
+      "date": "2025-05-17T21:53:04.092Z",
+      "notes": "Suise",
+      "position": {
+        "lat": "46.84516443029276",
+        "lng": "7.514648437500001"
+      }
+    },
+    {
+      "id": "c199",
+      "cityName": "Cluis",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2025-05-17T21:53:13.165Z",
+      "notes": "Grenoble\n",
+      "position": {
+        "lat": "46.51351558059737",
+        "lng": "1.77978515625"
+      }
+    },
+    {
+      "id": "3a8c",
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-05-17T21:53:31.760Z",
+      "notes": "Yep",
+      "position": {
+        "lat": "51.50532341149335",
+        "lng": "-0.07965087890625001"
+      }
+    }
+  ]
+}
