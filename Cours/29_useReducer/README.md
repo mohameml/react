@@ -1,7 +1,5 @@
 # Cour 29 : **useReducer**
 
-## 1. **Introduction:**
-
 -   **Définition:**
 
     > `useReducer` est un **hook React** permettant de gérer l'état d'un composant avec une logique centralisée, basée sur un **reducer** (comme dans Redux).

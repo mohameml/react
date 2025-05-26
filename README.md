@@ -40,10 +40,41 @@
 | [01_Projet_App_form](Projets/01_Projet_App_form/) | ![done](http://img.shields.io/badge/done-brightgreen.svg) |
 | [02_todo_app](Projets/02_todo_app/)               | ![done](https://img.shields.io/badge/progress-yellow.svg) |
 
--   **Ressources:**
+-   base react :
 
-| Documentation    | Lien                                                     |
-| ---------------- | -------------------------------------------------------- |
-| **React docs**   | [react_docs](https://react.dev/)                         |
-| **React Router** | [react_router_docs](https://reactrouter.com/en/main)     |
-| **Material UI**  | [mui_docs](https://mui.com/material-ui/getting-started/) |
+    -   intro
+    -   component
+    -   JSX
+    -   props
+    -   rendu cond
+    -   rendu list
+    -   handl Event
+    -   State
+    -   formulaire
+    -   Array State
+
+-   hook
+
+    -   useState
+    -   useEffect
+    -   useRef
+    -   useReducer
+    -   useMemo
+    -   useCallback
+    -   useTransition
+
+-   React Pattern :
+
+    -   Liffting state-up
+
+    -   Componets Composition
+
+    -   ..etc
+
+-   ecosysteme :
+
+    -   react router
+    -   redux / zustand
+    -   react query
+    -   react hook form
+    -   nextAuth
