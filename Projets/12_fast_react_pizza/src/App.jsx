@@ -10,14 +10,9 @@ import { action as actionUpdateOrder } from "./features/order/UpdateOrder";
 import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
 
-// loader :
-// 1. create loader
-// 2. provider loader
-// 3. use Data in compos
-
 const router = createBrowserRouter([
     {
-        element: <AppLayout />, // route layout
+        element: <AppLayout />,
         errorElement: <Error />,
         children: [
             {

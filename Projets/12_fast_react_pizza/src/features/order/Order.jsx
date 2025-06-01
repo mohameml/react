@@ -1,17 +1,29 @@
-// Test ID: IIDSAT
+import { useEffect } from "react";
+
+import OrderItem from "./OrderItem";
+import UpdateOrder from "./UpdateOrder";
+import { getOrder } from "../../services/apiRestaurant";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import {
     calcMinutesLeft,
     formatCurrency,
     formatDate,
 } from "../../utils/helpers";
-import { getOrder } from "../../services/apiRestaurant";
-import { useFetcher, useLoaderData } from "react-router-dom";
-import OrderItem from "./OrderItem";
-import { useEffect } from "react";
-import UpdateOrder from "./UpdateOrder";
 
-function Order() {
+export default function Order() {
+    // React Router :
     const order = useLoaderData();
+    const {
+        id,
+        status,
+        priority,
+        priorityPrice,
+        orderPrice,
+        estimatedDelivery,
+        cart,
+    } = order;
+
+    const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
     const fetcher = useFetcher();
 
@@ -22,17 +34,6 @@ function Order() {
         },
         [fetcher],
     );
-
-    const {
-        id,
-        status,
-        priority,
-        priorityPrice,
-        orderPrice,
-        estimatedDelivery,
-        cart,
-    } = order;
-    const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
     return (
         <div className="space-y-8 px-4 py-6">
@@ -102,7 +103,5 @@ function loader({ params }) {
     const order = getOrder(params.orderId);
     return order;
 }
-
-export default Order;
 
 export { loader };
