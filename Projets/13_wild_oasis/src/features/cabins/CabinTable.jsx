@@ -1,9 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllCabines } from "../../services/apiCabins";
 import styled from "styled-components";
-
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import { useCabins } from "./useCabins";
 
 const Table = styled.div`
 	border: 1px solid var(--color-grey-200);
@@ -11,10 +9,8 @@ const Table = styled.div`
 	background-color: var(--color-grey-0);
 	border-radius: 7px;
 	overflow: hidden;
-	/* width: 100%; */
 `;
 
-// 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr
 const TableHeader = styled.header`
 	display: grid;
 	grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -31,14 +27,7 @@ const TableHeader = styled.header`
 `;
 
 export default function CabinTable() {
-	const {
-		isLoading,
-		data: cabins,
-		error,
-	} = useQuery({
-		queryKey: ["cabins"],
-		queryFn: getAllCabines,
-	});
+	const { isLoading, cabins, error } = useCabins();
 
 	if (isLoading) return <Spinner />;
 

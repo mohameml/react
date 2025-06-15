@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabine } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
+import { useDeleteCabin } from "./useDeleteCabin";
+import { HiPencil, HiTrash, HiSquare2Stack } from "react-icons/hi2";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
 	display: grid;
@@ -47,6 +47,8 @@ const Discount = styled.div`
 
 export default function CabinRow({ cabin }) {
 	const [showEditForm, setShowEditForm] = useState(false);
+	const { isDeleting, deleteCabin } = useDeleteCabin();
+	const { isCreating, createCabin } = useCreateCabin();
 
 	const {
 		id: cabinId,
@@ -55,22 +57,10 @@ export default function CabinRow({ cabin }) {
 		regularPrice,
 		discount,
 		image,
-		// description,
+		description,
 	} = cabin;
 
-	const queryClient = useQueryClient();
-
-	const { isPending, mutate } = useMutation({
-		mutationFn: (id) => deleteCabine(id),
-		onSuccess: (data) => {
-			toast.success("Cabin successfully Delete");
-			console.log("data =", data);
-			queryClient.invalidateQueries({
-				queryKey: ["cabins"],
-			});
-		},
-		onError: (err) => toast.error(err.message),
-	});
+	const isPending = isCreating | isDeleting;
 
 	return (
 		<>
@@ -85,14 +75,29 @@ export default function CabinRow({ cabin }) {
 				<Discount>{formatCurrency(discount)}</Discount>
 
 				<div>
+					<button
+						onClick={() =>
+							createCabin({
+								name: `Copy of ${name}`,
+								maxCapacity,
+								regularPrice,
+								discount,
+								image,
+								description,
+							})
+						}
+						disabled={isPending}
+					>
+						<HiSquare2Stack />
+					</button>
 					<button onClick={() => setShowEditForm((show) => !show)}>
-						Edit
+						<HiPencil />
 					</button>
 					<button
 						disabled={isPending}
-						onClick={() => mutate(cabinId)}
+						onClick={() => deleteCabin(cabinId)}
 					>
-						{isPending ? "Deleting  ..." : "DELETE"}
+						<HiTrash />
 					</button>
 				</div>
 			</TableRow>
